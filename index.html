@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="./js/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript">
+        $( document ).ready(function() {
+            // alert("mezhu");
+            go(document.getElementById('date2').value);
+        });
+     
+        // $( window ).on( "load", function() {
+        //     console.log( "window loaded" );
+        // });
+        </script>
+        <script type="text/javascript">
+            // 倒计时
+            var _ordertimer = null;
+            var data=new Date();
+           //  document.getElementById("date2").value=data.getFullYear()+'-'+(data.getMonth()+1)+'-'+data.getDate()+' '+data.getHours()+':'+data.getMinutes()+':'+data.getSeconds();//当前时间
+            function leftTimer(enddate) {
+            var leftTime = (new Date(enddate)) - new Date(); //计算剩余的毫秒数
+            var days = parseInt(leftTime / 1000 / 60 / 60 / 24, 10); //计算剩余的天数
+            var hours = parseInt(leftTime / 1000 / 60 / 60 % 24, 10); //计算剩余的小时
+            var minutes = parseInt(leftTime / 1000 / 60 % 60, 10);//计算剩余的分钟
+            var seconds = parseInt(leftTime / 1000 % 60, 10);//计算剩余的秒数
+            days = checkTime(days);
+            hours = checkTime(hours);
+            minutes = checkTime(minutes);
+            seconds = checkTime(seconds);
+            if (days >= 0 || hours >= 0 || minutes >= 0 || seconds >= 0)
+            {     
+               document.getElementById("days").innerHTML= parseInt(days) 
+               document.getElementById("hours").innerHTML=parseInt(hours) 
+               document.getElementById("minutes").innerHTML=parseInt(minutes) 
+               document.getElementById("seconds").innerHTML=parseInt(seconds) 
+           
+               //  document.getElementById("hourmin").innerHTML =   hours + "小时" + minutes + "分" + seconds + "秒";
+                }
+            if (days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+            window.clearInterval(_ordertimer);
+            _ordertimer = null;
+            }
+            }
+            function checkTime(i) { //将0-9的数字前面加上0，例1变为01
+            if (i < 10) {
+            i = "0" + i;
+            }
+            return i;
+            }
+            function go(v){
+            var date1=new Date(),data2=new Date(v);
+            if(data2<date1)return;//设置的时间小于现在时间退出
+            _ordertimer = setInterval(function(){leftTimer(data2)}, 1000);
+            }
+            </script>
+    </head>
+    <style>
+        body{
+            width: 100vw;
+            height: 100vm;
+            display: flex;
+            justify-items: center;
+        }
+        /* 显示倒计时区域 */
+        .bigdiv{
+            display: flex; 
+            color:red;
+            font-size: 50px; 
+            flex-direction: column; 
+            text-align: center;
+            width: 85vw;
+            /* height: 450px; */ 
+            padding: 1rem;
+            background-color: rgba(220, 235, 17, 0.119);
+            border-radius: 1rem;
+            margin: 4rem auto 1rem auto;
+            border:  1px double rgba(217, 248, 40, 0.767);
+             
+        }
+        /* title行 */
+      
+        .title {
+            font-size: 2rem;
+            color: rgb(212, 209, 209);
+            letter-spacing: 5rem;
+            font-weight: 1000;
+   
+            /* background:green; */
+            animation:myfirst 10s;
+            -moz-animation:myfirst 10s; /* Firefox */
+            -webkit-animation:myfirst 10s; /* Safari and Chrome */
+            -o-animation:myfirst 10s; /* Opera */
+            /* 如果取值为infinite，动画将会无限次的播放。可改为次数 */
+            animation-iteration-count:infinite;
+        }
+
+    @keyframes myfirst
+    {
+    10% {color:rgba(121, 238, 97, 0.719);}
+    20% {color:rgba(91, 241, 196, 0.658);}
+    30% {color:rgba(124, 235, 243, 0.719);}
+    40% {color:rgba(150, 152, 238, 0.301);}
+    50% {color:rgba(218, 116, 243, 0.678);}
+    60% {color:rgba(235, 135, 213, 0.781);}
+    70% {color:rgba(238, 128, 220, 0.534);}
+    80% {color:rgba(240, 104, 115, 0.671);}
+    90% {color:rgba(247, 227, 119, 0.644);}
+    }
+        /* 第一行，天数 */
+        .bigdiv .daystian{
+            display: flex; 
+            text-align: center;
+            margin: 20px  20px; 
+            flex-direction: row; 
+            justify-content: space-evenly; 
+             height: 200px; 
+            justify-items: center;
+            line-height: 200px;
+             
+            /* 下面是渐变 */
+            /* padding: 0.5rem; */ 
+            border-radius: 0.5rem;
+            background-image: linear-gradient(#dbec3a, #7cd441,#4cc056,#50daa0,#5090da,#c949e2);
+
+        }
+        .daystian .days{
+            font-size: 7rem; 
+            flex: 5;
+            font-weight: 1000;
+            letter-spacing: 2rem;
+            color:red;
+            text-shadow:2px 3px 1px rgb(255, 255, 255);
+            animation:mydays 20s;
+            -moz-animation:mydays 20s; /* Firefox */
+            -webkit-animation:mydays 20s; /* Safari and Chrome */
+            -o-animation:mydays 20s; /* Opera */
+            /* 如果取值为infinite，动画将会无限次的播放。 */
+            animation-iteration-count:infinite;
+        }
+
+    @keyframes mydays
+    {
+    5% {color:rgb(255, 0, 21);}
+    10% {color:rgb(248, 211, 2);}
+    15% {color:rgb(43, 255, 0);}
+    20% {color:rgb(0, 17, 255);}
+    30% {color:rgb(3, 107, 114);}
+    40% {color:rgb(0, 4, 255);}
+    50% {color:rgb(204, 0, 255);}
+    60% {color:rgb(241, 6, 190);}
+    70% {color:rgb(119, 4, 100);}
+    80% {color:rgb(255, 0, 21);}
+    90% {color:rgb(180, 154, 6);}
+    }
+        .daystian .uitian{      
+        font-size: 2rem;
+        color: #fff;
+        flex: 1;
+        text-align: left;
+        }
+        /* 第二行，时分秒 */
+        .hourmins{
+            display: flex;
+           
+            height: 100px;
+            margin: 20px 20px;
+            justify-content: space-evenly; 
+            justify-items:center ;
+            line-height: 100px;
+            /* 下面是渐变 */
+            /* padding: 0.5rem; */ 
+            border-radius: 0.5rem;
+            background-image: linear-gradient(170deg,#c3f3bd, #98e7bc,#b6adeb,#c995fa,#f7b2b2,#e0de51);
+
+        }
+        .hourmins .hours{
+            font-weight: 700;
+            letter-spacing: 1rem;
+            color: rgb(218, 100, 3);
+            text-shadow:2px 3px 1px rgb(255, 255, 255);
+            flex: 2;
+        }
+        .hourmins .uiHMS{
+        font-size: 2rem;
+        color: rgb(255, 255, 255);
+        flex: 1;
+        }
+       
+        /* 标志行，最下一行 */
+        .tooterdate2div{
+            display: flex;
+            flex-direction: row; 
+            width: 100%; 
+            justify-content: flex-end; 
+            height: 50px;
+            justify-items: center;
+            margin-bottom: 0px;
+        }
+        .tooterdate2div .jingxiangjianbian
+        {
+            width: 20px;
+            height: 20px;
+            background-color:green;            
+            margin-right: 1rem;
+            border-radius: 0.3rem; 
+            background-image: radial-gradient(red, green, blue,rgb(255, 255, 255),rgb(233, 192, 10),rgb(235, 16, 16));
+        }
+        .tooterdate2div .totimeinput{
+        font-size: 0.7rem;
+        border: 0 red  hidden;
+        color: rgba(71, 224, 11, 0.911);
+        /* width: 100%; */
+        text-align: right;
+        background-color: transparent;
+        margin-right: 20px;        
+        }
+        .tooterdate2div .turn{
+        width:20px;
+        height: 20px;
+        background: aqua;
+        animation:turn 2s linear infinite;      
+        margin: 0px 20px 0 10px;
+        /* background-image: linear-gradient(45deg,#da5050,#4c54c0,#2de608,#d9f009, #2de608,#4c54c0,#da50c8,#da5050 ); */
+        /* background-image: linear-gradient(45deg,#da5050,#4c54c0,#2de608,#d9f009, #2de608,#4c54c0,#da50c8,#da5050 ); */
+        background-image: radial-gradient(#d9f009, #2de608,#4c54c0,#da50c8,#da5050);  
+        }
+    /* 
+      turn : 定义的动画名称
+      1s : 动画时间
+      linear : 动画以何种运行轨迹完成一个周期
+      infinite :规定动画应该无限次播放
+     */
+    @keyframes turn{
+      0%{-webkit-transform:rotate(0deg);}
+      25%{-webkit-transform:rotate(90deg);}
+      50%{-webkit-transform:rotate(180deg);}
+      75%{-webkit-transform:rotate(270deg);}
+      100%{-webkit-transform:rotate(360deg);}
+    }
+    </style>
+<body>
+   
+<div id="timer"  class="bigdiv">
+    <div class="title">倒计时</div>
+    <div class="daystian " >
+        <div class="days" id=days> </div>
+        <div class="uitian"  >天</div>
+    </div> 
+    <div class="hourmins" id=hourmin>
+        <div class="hours" id=hours></div>
+        <div class="uiHMS">时</div>
+        <div class="hours" id=minutes></div>
+        <div class="uiHMS">分</div>
+        <div id="seconds" class="hours"></div>
+        <div class="uiHMS">秒</div>
+
+    </div>
+    <div class="tooterdate2div">   
+        <div class="jingxiangjianbian"> </div>    
+        <div  class="totimeinput">2021-5-26</div>  
+        <input class="totimeinputhidden" hidden="hidden" type="text" value="2021-5-26  " id="date2">
+        <div class="turn"> </div>  
+    </div>
+</div>
+
+
+ </body>
+ </html>
